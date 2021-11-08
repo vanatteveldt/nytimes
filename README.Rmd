@@ -1,0 +1,41 @@
+---
+title: "README"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Simple R Package to query the NYTimes article search API. 
+
+Note: The `rtimes` packages was abandoned, and it seemed easier to write a simple package to only query the AS API rather than 
+taking over the whole package.
+
+## Installation
+
+```{r, eval=F}
+remotes::install_github("vanatteveldt/nytimes")
+```
+
+## API Key
+
+To get an API key, visit https://developer.nytimes.com/get-started.
+The first time you use this package, it will prompt you for the key and store it.
+You can also store it manually using:
+
+```{r, eval=F}
+options(NYTIMES_API_KEY="<YOUR API KEY>")
+```
+
+## Using the API
+
+The main function to use is the `query` function. 
+Apart from an optional API_KEY and max_pages argument, this passes all arguments directly to the article search API.
+For example, to get the first 20 front page articles of 2020 election news, you could use something like:
+
+```{r}
+library(nytimes)
+query(fq='(biden OR trump) AND source:"The New York Times" AND print_section:A AND print_page:1', begin_date="2020-01-01", end_date="2020-11-03",
+      max_pages=2)
+```
